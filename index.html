@@ -10,7 +10,7 @@
 <body>
 
 <h1>GPS</h1>
-<p>My first paragraph.</p>
+<input type="file" id="fileInput">
 
 </body>
 
@@ -18,13 +18,33 @@
     //var GPS = require('gps');
     //var gps = new GPS;
 
-    var sentence = '$GPGGA,224900.000,4832.3762,N,00903.5393,E,1,04,7.8,498.6,M,48.0,M,,0000*5E';
+    const fileInput = document.getElementById('fileInput');
 
-    gps.on('data', function (parsed) {
+    fileInput.addEventListener('change', (event) => {
 
-    console.log(parsed);
+        const file = event.target.files[0];
+
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+            const fileContent = event.target.result;
+            const lines = fileContent.split('\n');
+            console.log(lines[0]);
+        };
+
+        reader.readAsText(file);
+
     });
 
-    gps.update(sentence);
+    function readFile() {
+        var sentence = '$GPGGA,224900.000,4832.3762,N,00903.5393,E,1,04,7.8,498.6,M,48.0,M,,0000*5E';
+
+        gps.on('data', function (parsed) {
+
+            console.log(parsed);
+        });
+
+        gps.update(sentence);
+    }
 </script>
 </html>
