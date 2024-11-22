@@ -49,9 +49,18 @@
         gps.on('data', function (parsed) {
 
             console.log(parsed);
+            let lat1 = parsed.lat;
+            let lon1 = parsed.lon
+            let lat2 = Math.round(lat1);
+            let lon2 = Math.round(lon1);
+            let dist = GPS.Distance(lat1, lon1, lat2, lon2);
+            console.log("Distance: " + dist)
         });
 
-        gps.update(sentences[4]);
+        gps.update(sentences[0]);
+        
+        gps.update("Lon: " + sentences[0][5]);
+        
     }
 </script>
 </html>
